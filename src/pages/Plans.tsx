@@ -50,8 +50,8 @@ const Plans = () => {
   };
 
   return (
-    <div className="min-h-screen pb-8">
-      <div className="max-w-2xl mx-auto p-4">
+    <div className="min-h-screen pb-24">
+      <div className="max-w-md mx-auto p-4">
         <div className="flex items-center gap-4 mb-6">
           <Button
             variant="ghost"
@@ -130,40 +130,31 @@ const Plans = () => {
                   </li>
                 </ul>
               </div>
+
+              {selectedPlan?.id === plan.id && (
+                <div className="mt-4">
+                  <div className="flex justify-between items-center mb-3">
+                    <span className="font-medium">Amount to Pay</span>
+                    <span className="text-2xl font-bold text-primary">₹{plan.price}</span>
+                  </div>
+                  <Button
+                    variant="action"
+                    size="lg"
+                    className="w-full"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handlePurchase();
+                    }}
+                    disabled={isProcessing}
+                  >
+                    {isProcessing ? "Processing Payment..." : "Proceed to Pay"}
+                  </Button>
+                </div>
+              )}
             </Card>
           ))}
         </div>
-
-        {selectedPlan && (
-          <Card className="p-6 shadow-elevated gradient-card">
-            <div className="space-y-4">
-              <div className="flex justify-between items-center">
-                <span className="font-medium">Selected Plan</span>
-                <span className="text-lg font-bold">{selectedPlan.kwh} kWh</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="font-medium">Amount to Pay</span>
-                <span className="text-2xl font-bold text-primary">
-                  ₹{selectedPlan.price}
-                </span>
-              </div>
-
-              <Button
-                variant="action"
-                size="lg"
-                className="w-full"
-                onClick={handlePurchase}
-                disabled={isProcessing}
-              >
-                {isProcessing ? "Processing Payment..." : "Proceed to Pay"}
-              </Button>
-
-              <p className="text-xs text-center text-muted-foreground">
-                Secure payment powered by Razorpay
-              </p>
-            </div>
-          </Card>
-        )}
+        
       </div>
     </div>
   );

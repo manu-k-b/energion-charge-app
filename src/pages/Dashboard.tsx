@@ -51,7 +51,7 @@ const Dashboard = () => {
   if (!user) return null;
 
   return (
-    <div className="min-h-screen pb-20">
+    <div className="min-h-screen pb-24">
       <div className="max-w-md mx-auto p-4">
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-2xl font-bold">Energion</h1>
@@ -128,13 +128,10 @@ const Dashboard = () => {
 
                 <div className="bg-secondary/30 rounded-lg p-4">
                   <p className="text-sm text-muted-foreground mb-1">
-                    Charging for {chargeToAdd}% ({currentBattery}% → {chargePercent[0]}%)
+                    {chargeToAdd > 0 ? `Charging for ${chargeToAdd}%` : "Charging for"}
                   </p>
                   <p className="text-2xl font-bold text-primary">
                     ₹{estimatedCost}
-                  </p>
-                  <p className="text-xs text-muted-foreground mt-1">
-                    Estimated cost based on {chargeToAdd}% charge
                   </p>
                 </div>
 

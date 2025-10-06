@@ -34,7 +34,7 @@ const Profile = () => {
   if (!user) return null;
 
   return (
-    <div className="min-h-screen pb-20">
+    <div className="min-h-screen pb-24">
       <div className="max-w-md mx-auto p-4">
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-3">
