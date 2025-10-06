@@ -75,14 +75,22 @@ const Dashboard = () => {
                 <p className="text-2xl font-bold text-primary">{user.remaining} kWh</p>
               </div>
 
-              <Button
-                variant="action"
-                size="lg"
-                className="w-full"
-                onClick={handleStartCharging}
-              >
-                Start Charging
-              </Button>
+              <div className="grid grid-cols-2 gap-3">
+                <Button
+                  variant="outline"
+                  size="lg"
+                  onClick={() => navigate("/plans")}
+                >
+                  Recharge
+                </Button>
+                <Button
+                  variant="action"
+                  size="lg"
+                  onClick={handleStartCharging}
+                >
+                  Start Charging
+                </Button>
+              </div>
             </TabsContent>
 
             <TabsContent value="payg" className="space-y-4">
