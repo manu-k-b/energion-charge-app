@@ -38,9 +38,9 @@ const Dashboard = () => {
   const handleStartCharging = () => {
     if (planType === "payg") {
       // In real app, integrate with Razorpay here
-      navigate("/charging", { state: { chargePercent: chargePercent[0] } });
+      navigate("/charging", { state: { chargePercent: chargePercent[0], initialBattery: currentBattery } });
     } else {
-      navigate("/charging", { state: { chargePercent: 100 } });
+      navigate("/charging", { state: { chargePercent: 100, initialBattery: currentBattery } });
     }
   };
 

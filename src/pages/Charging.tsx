@@ -7,13 +7,16 @@ import { toast } from "sonner";
 import { Zap } from "lucide-react";
 
 const Charging = () => {
-  const [progress, setProgress] = useState(0);
+  const location = useLocation();
+  const targetPercent = location.state?.chargePercent || 100;
+  const initialBattery = location.state?.initialBattery ?? 0;
+  const [progress, setProgress] = useState<number>(
+    Math.min(Math.max(initialBattery, 0), targetPercent)
+  );
   const [kwhDelivered, setKwhDelivered] = useState(0);
   const [timeElapsed, setTimeElapsed] = useState(0);
   const [isComplete, setIsComplete] = useState(false);
   const navigate = useNavigate();
-  const location = useLocation();
-  const targetPercent = location.state?.chargePercent || 100;
 
   useEffect(() => {
     if (!location.state) {
