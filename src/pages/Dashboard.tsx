@@ -108,14 +108,19 @@ const Dashboard = () => {
                   </label>
                   <Slider
                     value={chargePercent}
-                    onValueChange={setChargePercent}
-                    min={currentBattery}
+                    onValueChange={(value) => {
+                      // Prevent slider from going below current battery level
+                      if (value[0] >= currentBattery) {
+                        setChargePercent(value);
+                      }
+                    }}
+                    min={0}
                     max={100}
                     step={5}
                     className="mb-2"
                   />
                   <div className="flex justify-between text-sm text-muted-foreground">
-                    <span>{currentBattery}%</span>
+                    <span>0%</span>
                     <span className="text-primary font-semibold">{chargePercent[0]}%</span>
                     <span>100%</span>
                   </div>
