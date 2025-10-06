@@ -16,7 +16,8 @@ interface UserData {
 
 const Dashboard = () => {
   const [user, setUser] = useState<UserData | null>(null);
-  const [chargePercent, setChargePercent] = useState([60]);
+  const [currentBattery, setCurrentBattery] = useState(50); // Mock current battery level
+  const [chargePercent, setChargePercent] = useState([50]); // Start at current battery
   const [planType, setPlanType] = useState<"prepaid" | "payg">("prepaid");
   const navigate = useNavigate();
 
@@ -44,7 +45,8 @@ const Dashboard = () => {
   };
 
   const costPerKWh = 10;
-  const estimatedCost = Math.round((chargePercent[0] / 100) * 5 * costPerKWh);
+  const chargeToAdd = chargePercent[0] - currentBattery;
+  const estimatedCost = Math.round((chargeToAdd / 100) * 5 * costPerKWh);
 
   if (!user) return null;
 
@@ -95,28 +97,39 @@ const Dashboard = () => {
 
             <TabsContent value="payg" className="space-y-4">
               <div className="space-y-4">
+                <div className="bg-secondary/30 rounded-lg p-4 mb-4">
+                  <p className="text-sm text-muted-foreground mb-1">Current Battery Level</p>
+                  <p className="text-3xl font-bold text-foreground">{currentBattery}%</p>
+                </div>
+
                 <div>
                   <label className="text-sm font-medium mb-2 block">
-                    Select Charge Amount
+                    Select Target Charge Level
                   </label>
                   <Slider
                     value={chargePercent}
                     onValueChange={setChargePercent}
+                    min={currentBattery}
                     max={100}
                     step={5}
                     className="mb-2"
                   />
                   <div className="flex justify-between text-sm text-muted-foreground">
-                    <span>0%</span>
+                    <span>{currentBattery}%</span>
                     <span className="text-primary font-semibold">{chargePercent[0]}%</span>
                     <span>100%</span>
                   </div>
                 </div>
 
                 <div className="bg-secondary/30 rounded-lg p-4">
-                  <p className="text-sm text-muted-foreground mb-1">Estimated Cost</p>
+                  <p className="text-sm text-muted-foreground mb-1">
+                    Charging for {chargeToAdd}% ({currentBattery}% → {chargePercent[0]}%)
+                  </p>
                   <p className="text-2xl font-bold text-primary">
-                    ₹{estimatedCost} for {chargePercent[0]}% charge
+                    ₹{estimatedCost}
+                  </p>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    Estimated cost based on {chargeToAdd}% charge
                   </p>
                 </div>
 
